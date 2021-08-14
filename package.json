@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "update": "docker run --rm -v $(pwd):$(pwd) --workdir $(pwd) quay.io/coreos/jsonnet-ci jb update",
-    "build": "docker run --rm -v $(pwd):$(pwd) --workdir $(pwd) quay.io/coreos/jsonnet-ci ./build.sh main.jsonnet"
+    "build": "docker run --rm -v $(pwd):$(pwd) --workdir $(pwd) quay.io/coreos/jsonnet-ci ./build.sh main.jsonnet",
+    "curl": "k run curl --image=radial/busyboxplus:curl -i --tty"
   },
   "author": "",
   "license": "ISC"
