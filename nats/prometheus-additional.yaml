@@ -1,0 +1,5 @@
+scrape_configs:
+  - job_name: "nats-exporter-scrape"
+    scrape_interval: 5s
+    static_configs:
+      - targets: ["nats-exporter.default.svc.cluster.local:7777"]
