@@ -1,0 +1,284 @@
+# ### mongodb0 server
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: mongodb0
+#   labels:
+#     app: mongodb0
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: mongodb0
+#   template:
+#     metadata:
+#       labels:
+#         app: mongodb0
+#     spec:
+#       containers:
+#         - name: mongodb0
+#           image: mongo:4.4.1
+#           volumeMounts:
+#             - mountPath: /amo
+#               name: amo-volume
+#           ports:
+#             - containerPort: 27017
+#           command: ["mongod", "--replSet", "rs0", "--oplogSize", "128"]
+#       volumes:
+#         - name: amo-volume
+#           hostPath:
+#             # directory location on host
+#             path: /home/ubuntu/amo
+# ---
+# # mongodb0 Service
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: mongodb0
+# spec:
+#   type: NodePort
+#   selector:
+#     app: mongodb0
+#   ports:
+#     - protocol: TCP
+#       port: 27017
+#       targetPort: 27017
+# ---
+# ### mongodb1 server
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: mongodb1
+#   labels:
+#     app: mongodb1
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: mongodb1
+#   template:
+#     metadata:
+#       labels:
+#         app: mongodb1
+#     spec:
+#       containers:
+#         - name: mongodb1
+#           image: mongo:4.4.1
+#           ports:
+#             - containerPort: 27017
+#           command: ["mongod", "--replSet", "rs0", "--oplogSize", "128"]
+# ---
+# # mongodb1 Service
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: mongodb1
+# spec:
+#   type: NodePort
+#   selector:
+#     app: mongodb1
+#   ports:
+#     - protocol: TCP
+#       port: 27017
+#       targetPort: 27017
+# ---
+# ### mongodb2 server
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: mongodb2
+#   labels:
+#     app: mongodb2
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: mongodb2
+#   template:
+#     metadata:
+#       labels:
+#         app: mongodb2
+#     spec:
+#       containers:
+#         - name: mongodb2
+#           image: mongo:4.4.1
+#           ports:
+#             - containerPort: 27017
+#           command: ["mongod", "--replSet", "rs0", "--oplogSize", "128"]
+# ---
+# # mongodb2 Service
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: mongodb2
+# spec:
+#   type: NodePort
+#   selector:
+#     app: mongodb2
+#   ports:
+#     - protocol: TCP
+#       port: 27017
+#       targetPort: 27017
+---
+### Redis server
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  labels:
+    app: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+        - name: redis
+          image: redis:6
+          ports:
+            - containerPort: 6379
+---
+# Redis Service
+apiVersion: v1
+kind: Service
+metadata:
+  # this name must match the name in REDIS_URL redis://<name_here>:6379
+  name: redis
+spec:
+  type: NodePort
+  selector:
+    app: redis
+  ports:
+    - protocol: TCP
+      port: 6379
+      targetPort: 6379
+---
+### NATS config
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nats-config
+data:
+  nats-config.conf: |
+    max_payload: 4Mb
+---
+### NATS server
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nats
+  labels:
+    app: nats
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nats
+  template:
+    metadata:
+      labels:
+        app: nats
+    spec:
+      containers:
+        - name: nats
+          image: nats:2.3.2-alpine3.14
+          ports:
+            - containerPort: 4222
+              name: port4
+            - containerPort: 6222
+              name: port6
+            - containerPort: 8222
+              name: port8
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/nats/
+          command:
+            - "nats-server"
+            - "--config"
+            - "/etc/nats/nats-config.conf"
+      volumes:
+        - name: config-volume
+          configMap:
+            name: nats-config
+---
+# NATS Service
+apiVersion: v1
+kind: Service
+metadata:
+  # this name must match the name in NATS_URL nats://<name_here>:4222
+  name: nats
+spec:
+  type: NodePort
+  selector:
+    app: nats
+  ports:
+    - protocol: TCP
+      name: port4
+      port: 4222
+      targetPort: 4222
+    - protocol: TCP
+      name: port6
+      port: 6222
+      targetPort: 6222
+    - protocol: TCP
+      name: port8
+      port: 8222
+      targetPort: 8222
+---
+### NATS server for messaging 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nats-messaging
+  labels:
+    app: nats-messaging
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nats-messaging
+  template:
+    metadata:
+      labels:
+        app: nats-messaging
+    spec:
+      containers:
+        - name: nats-messaging
+          image: nats:2.3.2-alpine3.14
+          ports:
+            - containerPort: 4222
+              name: port4
+            - containerPort: 6222
+              name: port6
+            - containerPort: 8222
+              name: port8
+---
+# NATS Service for messaging 
+apiVersion: v1
+kind: Service
+metadata:
+  # this name must match the name in NATS_URL nats://<name_here>:4222
+  name: nats-messaging
+spec:
+  type: NodePort
+  selector:
+    app: nats-messaging
+  ports:
+    - protocol: TCP
+      name: port4
+      port: 4222
+      targetPort: 4222
+    - protocol: TCP
+      name: port6
+      port: 6222
+      targetPort: 6222
+    - protocol: TCP
+      name: port8
+      port: 8222
+      targetPort: 8222
+---
