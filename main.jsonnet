@@ -17,7 +17,32 @@ local kp =
       },
     },
     
+    // custom rules
+    exampleApplication: {
+      prometheusRuleExample: {
+        apiVersion: 'monitoring.coreos.com/v1',
+        kind: 'PrometheusRule',
+        metadata: {
+          name: 'my-prometheus-rule',
+          namespace: $.values.common.namespace,
+        },
+        spec: {
+          groups: (import 'my-prometheus-rule.json').groups,
+        },
+      },
+    },
 
+    // custom scrape
+    prometheus+:: {
+      prometheus+: {
+        spec+: {
+          additionalScrapeConfigs: {
+            name: 'additional-scrape-configs',
+            key: 'prometheus-additional.yaml',
+          },
+        },  // spec
+      },  // prometheus
+    },  // prometheus
   };
 
 { 'setup/0namespace-namespace': kp.kubePrometheus.namespace } +
@@ -38,3 +63,4 @@ local kp =
 { ['node-exporter-' + name]: kp.nodeExporter[name] for name in std.objectFields(kp.nodeExporter) } +
 { ['prometheus-' + name]: kp.prometheus[name] for name in std.objectFields(kp.prometheus) } +
 { ['prometheus-adapter-' + name]: kp.prometheusAdapter[name] for name in std.objectFields(kp.prometheusAdapter) }
+{ ['example-application-' + name]: kp.exampleApplication[name] for name in std.objectFields(kp.exampleApplication) }

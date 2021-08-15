@@ -8,10 +8,9 @@ build:
 
 up:
 	microk8s kubectl apply -f ${BUILD_DIR}/manifests/setup
+	microk8s kubectl apply -f ${BUILD_DIR}/exporters/nats_exporter.yaml
+	microk8s kubectl apply -f ${BUILD_DIR}/exporters/additional-scrape-configs.yaml -n monitoring
 	microk8s kubectl apply -f ${BUILD_DIR}/manifests
-
-create_secret:
-	microk8s kubectl create secret generic additional-scrape-configs --from-file=${BUILD_DIR}/exporters/prometheus-additional.yaml --dry-run=client -oyaml > ${BUILD_DIR}/exporters/additional-scrape-configs.yaml
 
 down:
 	microk8s kubectl delete --ignore-not-found=true -f ${BUILD_DIR}/manifests/ -f ${BUILD_DIR}/manifests/setup
@@ -21,3 +20,9 @@ prometheus:
 	
 grafana:
 	microk8s kubectl --namespace monitoring port-forward svc/grafana 3000
+
+create_secret:
+	microk8s kubectl create secret generic additional-scrape-configs --from-file=${BUILD_DIR}/exporters/prometheus-additional.yaml --dry-run=client -oyaml > ${BUILD_DIR}/exporters/additional-scrape-configs.yaml
+
+create_rule:
+	cat my-prometheus-rule.yaml | gojsontoyaml -yamltojson > my-prometheus-rule.json

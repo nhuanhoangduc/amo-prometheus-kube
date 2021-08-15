@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: my-prometheus-rule
+  namespace: monitoring
+spec:
+  groups:
+  - name: custom-alert-rules
+    rules:
+    - alert: KubePodCrashLooping
+      annotations:
+        description: Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is restarting {{ printf "%.2f" $value }} times / 10 minutes.
+        runbook_url: https://github.com/prometheus-operator/kube-prometheus/wiki/kubepodcrashlooping
+        summary: Pod is crash looping.
+      expr: |
+        rate(kube_pod_container_status_restarts_total{namespace="kube-state-metrics"}[10m]) * 60 * 5 > 0
+      for: 15m
+      labels:
+        severity: critical

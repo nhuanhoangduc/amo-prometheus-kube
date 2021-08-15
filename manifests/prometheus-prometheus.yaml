@@ -10,12 +10,15 @@ metadata:
   name: k8s
   namespace: monitoring
 spec:
+  additionalScrapeConfigs:
+    key: prometheus-additional.yaml
+    name: additional-scrape-configs
   alerting:
     alertmanagers:
-      - apiVersion: v2
-        name: alertmanager-main
-        namespace: monitoring
-        port: web
+    - apiVersion: v2
+      name: alertmanager-main
+      namespace: monitoring
+      port: web
   externalLabels: {}
   image: quay.io/prometheus/prometheus:v2.26.0
   nodeSelector:
