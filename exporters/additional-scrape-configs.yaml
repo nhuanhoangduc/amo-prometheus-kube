@@ -1,7 +1,4 @@
-apiVersion: v1
-data:
-  additional-scrape-configs-raw.yaml: LSBqb2JfbmFtZTogbmF0cy1leHBvcnRlcgogIHNjcmFwZV9pbnRlcnZhbDogNXMKICBzdGF0aWNfY29uZmlnczoKICAgIC0gdGFyZ2V0czogWyJodHRwOi8vbmF0cy1leHBvcnRlci5kZWZhdWx0LnN2Yy5jbHVzdGVyLmxvY2FsOjc3NzciXQo=
-kind: Secret
-metadata:
-  creationTimestamp: null
-  name: additional-scrape-configs
+- job_name: nats-exporter
+  scrape_interval: 5s
+  static_configs:
+    - targets: ["http://nats-exporter.default.svc.cluster.local:7777"]

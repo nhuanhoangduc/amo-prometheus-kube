@@ -11,7 +11,7 @@ metadata:
   namespace: monitoring
 spec:
   additionalScrapeConfigs:
-    key: ./exporters/additional-scrape-configs.yaml
+    key: additional-scrape-configs.yaml
     name: additional-scrape-configs
   alerting:
     alertmanagers:

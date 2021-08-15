@@ -22,7 +22,7 @@ local kp =
         spec+: {  // https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#prometheusspec
           additionalScrapeConfigs: {
             name: "additional-scrape-configs",
-            key: "./exporters/additional-scrape-configs.yaml"
+            key: "additional-scrape-configs.yaml"
           },
         },  // spec
       },  // prometheus

@@ -6,7 +6,8 @@
   "scripts": {
     "update": "docker run --rm -v $(pwd):$(pwd) --workdir $(pwd) quay.io/coreos/jsonnet-ci jb update",
     "build": "docker run --rm -v $(pwd):$(pwd) --workdir $(pwd) quay.io/coreos/jsonnet-ci ./build.sh ./main.jsonnet",
-    "curl": "k run curl --image=radial/busyboxplus:curl -i --tty"
+    "curl": "k run curl --image=radial/busyboxplus:curl -i --tty",
+    "export:prometheus": "k --namespace monitoring port-forward svc/prometheus-k8s 9090"
   },
   "author": "",
   "license": "ISC"
