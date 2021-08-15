@@ -3,4 +3,4 @@
   scrape_timeout: 10s
   metrics_path: /metrics
   static_configs:
-    - targets: ["nats-exporter.default.svc.cluster.local:7777"]
+    - targets: ["10.152.183.138:7777"]

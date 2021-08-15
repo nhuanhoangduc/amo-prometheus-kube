@@ -11,10 +11,13 @@ up:
 	microk8s kubectl apply -f ${BUILD_DIR}/manifests
 
 create_secret:
-	microk8s kubectl create secret generic additional-configs --from-file=${BUILD_DIR}/prometheus-additional.yaml -n monitoring
+	microk8s kubectl create secret generic additional-scrape-configs --from-file=${BUILD_DIR}/exporters/prometheus-additional.yaml --dry-run=client -oyaml > ${BUILD_DIR}/exporters/additional-scrape-configs.yaml
 
 down:
 	microk8s kubectl delete --ignore-not-found=true -f ${BUILD_DIR}/manifests/ -f ${BUILD_DIR}/manifests/setup
 
 prometheus:
 	microk8s kubectl --namespace monitoring port-forward svc/prometheus-k8s 9090
+	
+grafana:
+	microk8s kubectl --namespace monitoring port-forward svc/grafana 3000
