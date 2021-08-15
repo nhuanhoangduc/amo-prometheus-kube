@@ -16,6 +16,17 @@ local kp =
         config: importstr 'alertmanager-config.yaml',
       },
     },
+    
+    prometheus+:: {
+      prometheus+: {
+        spec+: {  // https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#prometheusspec
+          additionalScrapeConfigs: {
+            name: "additional-scrape-configs",
+            key: "./exporters/additional-scrape-configs.yaml"
+          },
+        },  // spec
+      },  // prometheus
+    },  // prometheus
   };
 
 { 'setup/0namespace-namespace': kp.kubePrometheus.namespace } +
@@ -27,6 +38,7 @@ local kp =
 { 'prometheus-operator-serviceMonitor': kp.prometheusOperator.serviceMonitor } +
 { 'prometheus-operator-prometheusRule': kp.prometheusOperator.prometheusRule } +
 { 'kube-prometheus-prometheusRule': kp.kubePrometheus.prometheusRule } +
+{ ['0prometheus-operator-' + name]: kp.prometheusOperator[name] for name in std.objectFields(kp.prometheusOperator) } +
 { ['alertmanager-' + name]: kp.alertmanager[name] for name in std.objectFields(kp.alertmanager) } +
 { ['blackbox-exporter-' + name]: kp.blackboxExporter[name] for name in std.objectFields(kp.blackboxExporter) } +
 { ['grafana-' + name]: kp.grafana[name] for name in std.objectFields(kp.grafana) } +
