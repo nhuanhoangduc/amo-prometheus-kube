@@ -1,4 +1,7 @@
-- job_name: nats-exporter
-  scrape_interval: 5s
-  static_configs:
-    - targets: ["http://nats-exporter.default.svc.cluster.local:7777"]
+apiVersion: v1
+data:
+  prometheus-additional.yaml: LSBqb2JfbmFtZTogbmF0cy1leHBvcnRlcgogIHNjcmFwZV9pbnRlcnZhbDogMW0KICBzY3JhcGVfdGltZW91dDogMTBzCiAgbWV0cmljc19wYXRoOiAvbWV0cmljcwogIHN0YXRpY19jb25maWdzOgogICAgLSB0YXJnZXRzOiBbImh0dHA6Ly9uYXRzLWV4cG9ydGVyLmRlZmF1bHQuc3ZjLmNsdXN0ZXIubG9jYWw6Nzc3NyJdCg==
+kind: Secret
+metadata:
+  creationTimestamp: null
+  name: additional-scrape-configs

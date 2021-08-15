@@ -17,16 +17,7 @@ local kp =
       },
     },
     
-    prometheus+:: {
-      prometheus+: {
-        spec+: {  // https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#prometheusspec
-          additionalScrapeConfigs: {
-            name: "additional-scrape-configs",
-            key: "additional-scrape-configs.yaml"
-          },
-        },  // spec
-      },  // prometheus
-    },  // prometheus
+
   };
 
 { 'setup/0namespace-namespace': kp.kubePrometheus.namespace } +
