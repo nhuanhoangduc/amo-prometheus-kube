@@ -1,13 +1,21 @@
 groups:
   - name: custom-alert-rules
     rules:
-      - alert: KubePodCrashLooping
+      - alert: CrashLooping
         annotations:
           description: Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is restarting {{ printf "%.2f" $value }} times / 10 minutes.
           runbook_url: https://github.com/prometheus-operator/kube-prometheus/wiki/kubepodcrashlooping
           summary: Pod is crash looping.
         expr: |
-          rate(kube_pod_container_status_restarts_total{namespace="default"}[10m]) * 60 * 5 > 0
-        for: 15m
+          rate(kube_pod_container_status_restarts_total{namespace="default"}[10m]) > 0
+        for: 3m
         labels:
           severity: critical
+      - alert: HighCpuUsage
+        expr: (sum(rate(container_cpu_usage_seconds_total{namespace="default"}[10m])) BY (namespace, pod) * 100) > 0
+        for: 3m
+        labels:
+          severity: critical
+        annotations:
+          summary: Container CPU usage (pod {{ $labels.pod }}) > 80%
+          description: "Container CPU usage is above 80%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
