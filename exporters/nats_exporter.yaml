@@ -38,9 +38,7 @@ spec:
           args:
             [
               "-varz",
-              "-channelz",
               "-connz",
-              "-serverz",
               "-subz",
               "http://nats.default.svc.cluster.local:8222",
             ]
