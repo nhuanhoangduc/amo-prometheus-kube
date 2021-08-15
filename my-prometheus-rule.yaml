@@ -17,5 +17,5 @@ groups:
         labels:
           severity: critical
         annotations:
-          summary: Container CPU usage (pod {{ $labels.pod }}) > 80%
+          summary: Container CPU usage (pod {{ $labels.pod }})
           description: "Container CPU usage is above 80%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
