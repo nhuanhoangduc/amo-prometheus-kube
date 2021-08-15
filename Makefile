@@ -19,6 +19,9 @@ prometheus:
 	
 grafana:
 	microk8s kubectl --namespace monitoring port-forward svc/grafana 3000
+	
+alertmanager:
+	microk8s kubectl --namespace monitoring port-forward svc/alertmanager-main 9093
 
 up:
 	microk8s kubectl apply -f ${BUILD_DIR}/manifests/setup

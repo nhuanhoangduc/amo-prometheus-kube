@@ -27,6 +27,12 @@ local kp =
         apiVersion: 'monitoring.coreos.com/v1',
         kind: 'PrometheusRule',
         metadata: {
+          labels: {
+            'app.kubernetes.io/name': 'kube-prometheus',
+            'app.kubernetes.io/part-of': 'kube-prometheus',
+            prometheus: 'k8s',
+            role: 'alert-rules',
+          },
           name: 'my-prometheus-rule',
           namespace: $.values.common.namespace,
         },
