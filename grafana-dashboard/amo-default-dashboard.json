@@ -1,4 +1,46 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_PROMETHEUS",
+      "label": "prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__requires": [
+    {
+      "type": "panel",
+      "id": "gauge",
+      "name": "Gauge",
+      "version": ""
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "7.5.4"
+    },
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph",
+      "version": ""
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -15,8 +57,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 26,
-  "iteration": 1628958851348,
+  "id": null,
+  "iteration": 1629068333422,
   "links": [],
   "panels": [
     {
@@ -34,7 +76,7 @@
       "type": "row"
     },
     {
-      "datasource": null,
+      "datasource": "${DS_PROMETHEUS}",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -50,8 +92,9 @@
               "value": "null"
             }
           ],
+          "max": 1,
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
                 "color": "green",
@@ -79,17 +122,15 @@
       },
       "id": 18,
       "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": ["mean"],
           "fields": "",
           "values": false
         },
-        "text": {},
-        "textMode": "auto"
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "text": {}
       },
       "pluginVersion": "7.5.4",
       "targets": [
@@ -98,14 +139,15 @@
           "expr": "1 - avg(rate(node_cpu_seconds_total{mode=\"idle\", cluster=\"$cluster\"}[$__rate_interval]))",
           "interval": "",
           "legendFormat": "",
+          "queryType": "randomWalk",
           "refId": "A"
         }
       ],
       "title": "CPU Utilisation",
-      "type": "stat"
+      "type": "gauge"
     },
     {
-      "datasource": null,
+      "datasource": "${DS_PROMETHEUS}",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -165,9 +207,10 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "100 -\n(\n  avg(node_memory_MemAvailable_bytes{job=\"node-exporter\", cluster=\"$cluster\"})\n/\n  avg(node_memory_MemTotal_bytes{job=\"node-exporter\", cluster=\"$cluster\"})\n* 100\n)",
+          "expr": "100 -(  avg(node_memory_MemAvailable_bytes{job=\"node-exporter\", cluster=\"$cluster\"})/  avg(node_memory_MemTotal_bytes{job=\"node-exporter\", cluster=\"$cluster\"})* 100)",
           "interval": "",
           "legendFormat": "",
+          "queryType": "randomWalk",
           "refId": "A"
         }
       ],
@@ -175,7 +218,7 @@
       "type": "gauge"
     },
     {
-      "datasource": null,
+      "datasource": "${DS_PROMETHEUS}",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -225,6 +268,7 @@
           "expr": "sum(kubelet_running_pods{cluster=\"$cluster\", job=\"kubelet\", metrics_path=\"/metrics\", instance=~\"$instance\"}) OR sum(kubelet_running_pod_count{cluster=\"$cluster\", job=\"kubelet\", metrics_path=\"/metrics\", instance=~\"$instance\"})",
           "interval": "",
           "legendFormat": "",
+          "queryType": "randomWalk",
           "refId": "A"
         }
       ],
@@ -232,7 +276,7 @@
       "type": "stat"
     },
     {
-      "datasource": null,
+      "datasource": "${DS_PROMETHEUS}",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -282,6 +326,7 @@
           "expr": "sum(kubelet_running_containers{cluster=\"$cluster\", job=\"kubelet\", metrics_path=\"/metrics\", instance=~\"$instance\"}) OR sum(kubelet_running_container_count{cluster=\"$cluster\", job=\"kubelet\", metrics_path=\"/metrics\", instance=~\"$instance\"})",
           "interval": "",
           "legendFormat": "",
+          "queryType": "randomWalk",
           "refId": "A"
         }
       ],
@@ -307,7 +352,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "${DS_PROMETHEUS}",
       "fieldConfig": {
         "defaults": {},
         "overrides": []
@@ -353,6 +398,7 @@
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "{{namespace}}",
+          "queryType": "randomWalk",
           "refId": "A"
         }
       ],
@@ -418,7 +464,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "${DS_PROMETHEUS}",
       "fieldConfig": {
         "defaults": {},
         "overrides": []
@@ -461,8 +507,11 @@
         {
           "exemplar": true,
           "expr": "sum(container_memory_rss{cluster=\"$cluster\", container!=\"\"}) by (namespace)",
+          "instant": false,
           "interval": "",
+          "intervalFactor": 2,
           "legendFormat": "{{namespace}}",
+          "queryType": "randomWalk",
           "refId": "A"
         }
       ],
@@ -528,7 +577,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${datasource}",
+      "datasource": "${DS_PROMETHEUS}",
       "fieldConfig": {
         "defaults": {},
         "overrides": []
@@ -625,7 +674,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${datasource}",
+      "datasource": "${DS_PROMETHEUS}",
       "fieldConfig": {
         "defaults": {},
         "overrides": []
@@ -720,7 +769,7 @@
       }
     },
     {
-      "datasource": null,
+      "datasource": "${DS_PROMETHEUS}",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -774,6 +823,7 @@
           "expr": "sum(irate(container_network_transmit_bytes_total{cluster=\"$cluster\",namespace=~\"$namespace\"}[$interval:$resolution]))",
           "interval": "",
           "legendFormat": "",
+          "queryType": "randomWalk",
           "refId": "A"
         }
       ],
@@ -781,7 +831,7 @@
       "type": "gauge"
     },
     {
-      "datasource": null,
+      "datasource": "${DS_PROMETHEUS}",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -835,6 +885,7 @@
           "expr": "sum(irate(container_network_receive_bytes_total{cluster=\"$cluster\",namespace=~\"$namespace\"}[$interval:$resolution]))",
           "interval": "",
           "legendFormat": "",
+          "queryType": "randomWalk",
           "refId": "A"
         }
       ],
@@ -846,7 +897,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "${DS_PROMETHEUS}",
       "fieldConfig": {
         "defaults": {},
         "overrides": []
@@ -892,7 +943,9 @@
           "exemplar": true,
           "expr": "sum(irate(container_network_receive_bytes_total{cluster=\"$cluster\",namespace=~\"$namespace\"}[$interval:$resolution])) by (pod)",
           "interval": "",
+          "intervalFactor": 2,
           "legendFormat": "{{pod}}",
+          "queryType": "randomWalk",
           "refId": "A"
         }
       ],
@@ -944,7 +997,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "${DS_PROMETHEUS}",
       "fieldConfig": {
         "defaults": {},
         "overrides": []
@@ -991,6 +1044,7 @@
           "expr": "sum(irate(container_network_transmit_bytes_total{cluster=\"$cluster\",namespace=~\"$namespace\"}[$interval:$resolution])) by (pod)",
           "interval": "",
           "legendFormat": "{{pod}}",
+          "queryType": "randomWalk",
           "refId": "A"
         }
       ],
@@ -1047,8 +1101,8 @@
       {
         "current": {
           "selected": false,
-          "text": "default",
-          "value": "default"
+          "text": "prometheus",
+          "value": "prometheus"
         },
         "description": null,
         "error": null,
@@ -1067,12 +1121,8 @@
       },
       {
         "allValue": null,
-        "current": {
-          "selected": false,
-          "text": "None",
-          "value": ""
-        },
-        "datasource": "${datasource}",
+        "current": {},
+        "datasource": "${DS_PROMETHEUS}",
         "definition": "label_values(kube_pod_info, cluster)",
         "description": null,
         "error": null,
@@ -1098,12 +1148,8 @@
       },
       {
         "allValue": null,
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
-        },
-        "datasource": "${datasource}",
+        "current": {},
+        "datasource": "${DS_PROMETHEUS}",
         "definition": "label_values(kubelet_runtime_operations_total{cluster=\"$cluster\", job=\"kubelet\", metrics_path=\"/metrics\"}, instance)",
         "description": null,
         "error": null,
@@ -1129,12 +1175,8 @@
       },
       {
         "allValue": null,
-        "current": {
-          "selected": false,
-          "text": "default",
-          "value": "default"
-        },
-        "datasource": "${datasource}",
+        "current": {},
+        "datasource": "${DS_PROMETHEUS}",
         "definition": "label_values(kube_pod_info{cluster=\"$cluster\"}, namespace)",
         "description": null,
         "error": null,
@@ -1160,12 +1202,8 @@
       },
       {
         "allValue": null,
-        "current": {
-          "selected": false,
-          "text": ["nhuan"],
-          "value": ["nhuan"]
-        },
-        "datasource": "${datasource}",
+        "current": {},
+        "datasource": "${DS_PROMETHEUS}",
         "definition": "label_values(kube_pod_info{cluster=\"$cluster\"}, node)",
         "description": null,
         "error": null,
@@ -1194,7 +1232,7 @@
         "auto_count": 30,
         "auto_min": "10s",
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "6h",
           "value": "6h"
         },
@@ -1220,7 +1258,7 @@
         "auto_count": 30,
         "auto_min": "10s",
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "5m",
           "value": "5m"
         },
@@ -1251,5 +1289,5 @@
   "timezone": "America/Los_Angeles",
   "title": "Default AMO dashboard",
   "uid": "nQyaW77nz",
-  "version": 32
+  "version": 1
 }
