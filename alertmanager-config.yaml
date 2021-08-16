@@ -6,6 +6,11 @@ route:
   group_interval: 10m
   repeat_interval: 5m
   receiver: "slack-notifications"
+  routes:
+    - match:
+        alertname: Watchdog
+    - match:
+        app: amo
 receivers:
   - name: "slack-notifications"
     webhook_configs:

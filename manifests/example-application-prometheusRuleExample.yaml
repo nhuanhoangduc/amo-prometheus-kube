@@ -14,21 +14,19 @@ spec:
     rules:
     - alert: CrashLooping
       annotations:
-        description: Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is restarting {{ printf "%.2f" $value }} times / 10 minutes.
+        description: Pod {{ $labels.pod }} ({{ $labels.container }}) is restarting {{ printf "%.2f" $value }} times / 10 minutes.
         summary: Pod is crash looping.
-      expr: |
-        rate(kube_pod_container_status_restarts_total{namespace="default"}[10m]) > 0
+      expr: rate(kube_pod_container_status_restarts_total{namespace="default"}[10m]) > 0
       for: 3m
       labels:
+        app: amo
         severity: critical
     - alert: HighCpuUsage
       annotations:
-        description: |-
-          Container CPU usage is above 80%
-            VALUE = {{ $value }}
-            LABELS = {{ $labels }}
+        description: Container CPU usage {{ $labels.pod }} is above 80%
         summary: Container CPU usage (pod {{ $labels.pod }})
-      expr: (sum(rate(container_cpu_usage_seconds_total{namespace="default"}[10m])) BY (namespace, pod) * 100) > 0
+      expr: (sum(rate(container_cpu_usage_seconds_total{namespace="default"}[10m])) BY (namespace, pod) * 100) > 80
       for: 3m
       labels:
+        app: amo
         severity: critical
