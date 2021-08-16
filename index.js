@@ -6,15 +6,15 @@ const slackToken = "xoxb-2359270667718-2383288163893-F0SPsh181v1MzjohOcSY9ppj";
 // run().catch((err) => console.log(err));
 
 async function run() {
-  // const url = "https://slack.com/api/chat.postMessage";
-  // const res = await axios.post(
-  //   url,
-  //   {
-  //     channel: "#local-server",
-  //     text: "Hello, World!",
-  //   },
-  //   { headers: { authorization: `Bearer ${slackToken}` } }
-  // );
+  const url = "https://slack.com/api/chat.postMessage";
+  const res = await axios.post(
+    url,
+    {
+      channel: "#local-server",
+      text: "Hello, World!",
+    },
+    { headers: { authorization: `Bearer ${slackToken}` } }
+  );
 
   const url = "https://slack.com/api/oauth.v2.access";
   const res = await axios.post(url, {
