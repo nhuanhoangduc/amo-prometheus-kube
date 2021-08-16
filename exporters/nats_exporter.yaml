@@ -35,8 +35,7 @@ spec:
           ports:
             - containerPort: 7777
           command: ["/prometheus-nats-exporter"]
-          args:
-            ["-varz", "-connz", "http://nats.default.svc.cluster.local:8222"]
+          args: ["-varz", "http://nats.default.svc.cluster.local:8222"]
 ---
 apiVersion: v1
 kind: Service

@@ -186,7 +186,7 @@ spec:
     spec:
       containers:
         - name: nats
-          image: nats:2.3.2-alpine3.14
+          image: nats:2.3.4-scratch
           ports:
             - containerPort: 4222
               name: port4
@@ -194,17 +194,6 @@ spec:
               name: port6
             - containerPort: 8222
               name: port8
-          volumeMounts:
-            - name: config-volume
-              mountPath: /etc/nats/
-          command:
-            - "nats-server"
-            - "--config"
-            - "/etc/nats/nats-config.conf"
-      volumes:
-        - name: config-volume
-          configMap:
-            name: nats-config
 ---
 # NATS Service
 apiVersion: v1
@@ -230,7 +219,7 @@ spec:
       port: 8222
       targetPort: 8222
 ---
-### NATS server for messaging 
+### NATS server for messaging
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -249,7 +238,7 @@ spec:
     spec:
       containers:
         - name: nats-messaging
-          image: nats:2.3.2-alpine3.14
+          image: nats:2.3.4-scratch
           ports:
             - containerPort: 4222
               name: port4
@@ -258,7 +247,7 @@ spec:
             - containerPort: 8222
               name: port8
 ---
-# NATS Service for messaging 
+# NATS Service for messaging
 apiVersion: v1
 kind: Service
 metadata:
@@ -282,3 +271,4 @@ spec:
       port: 8222
       targetPort: 8222
 ---
+
