@@ -29,7 +29,7 @@ spec:
             VALUE = {{ $value }}
             LABELS = {{ $labels }}
         summary: Container CPU usage (pod {{ $labels.pod }})
-      expr: (sum(rate(container_cpu_usage_seconds_total{namespace="default"}[10m])) BY (namespace, pod) * 100) > 0
+      expr: (sum(rate(container_cpu_usage_seconds_total{namespace="default"}[10m])) BY (namespace, pod) * 100) > 80
       for: 3m
       labels:
         severity: critical

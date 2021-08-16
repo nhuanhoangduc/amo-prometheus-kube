@@ -2,3 +2,4 @@
   static_configs:
     - targets:
         - nats-exporter.default.svc.cluster.local:7777
+        - redis-exporter.default.svc.cluster.local:9121

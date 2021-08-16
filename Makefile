@@ -26,6 +26,7 @@ alertmanager:
 up:
 	microk8s kubectl apply -f ${BUILD_DIR}/manifests/setup
 	microk8s kubectl apply -f ${BUILD_DIR}/exporters/nats_exporter.yaml
+	microk8s kubectl apply -f ${BUILD_DIR}/exporters/redis_exporter.yaml
 	microk8s kubectl apply -f ${BUILD_DIR}/exporters/additional-scrape-configs.yaml -n monitoring
 	microk8s kubectl apply -f ${BUILD_DIR}/manifests
 

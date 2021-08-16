@@ -12,7 +12,7 @@ groups:
         labels:
           severity: critical
       - alert: HighCpuUsage
-        expr: (sum(rate(container_cpu_usage_seconds_total{namespace="default"}[10m])) BY (namespace, pod) * 100) > 0
+        expr: (sum(rate(container_cpu_usage_seconds_total{namespace="default"}[10m])) BY (namespace, pod) * 100) > 80
         for: 3m
         labels:
           severity: critical
