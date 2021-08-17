@@ -14,5 +14,5 @@ route:
 receivers:
   - name: "slack-notifications"
     webhook_configs:
-      - url: https://fb0425ab4c65.ngrok.io/api/sendPrometheusAlertsToSlack
+      - url: https://2d9133a09ad2.ngrok.io/api/sendPrometheusAlertsToSlack
         send_resolved: true

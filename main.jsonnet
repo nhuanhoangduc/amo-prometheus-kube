@@ -19,6 +19,13 @@ local kp =
       alertmanager+: {
         config: importstr 'alertmanager-config.yaml',
       },
+      grafana+: {
+        rawDashboards+:: {
+          'amo-default-dashboard.json': (importstr './grafana-dashboards/amo-default-dashboard.json'),
+          'nats-dashboard.json': (importstr './grafana-dashboards/nats-dashboard.json'),
+          'redis-dashboard.json': (importstr './grafana-dashboards/redis-dashboard.json'),
+        },
+      },
     },
     
     // custom rules
