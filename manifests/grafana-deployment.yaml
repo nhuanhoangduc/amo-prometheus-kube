@@ -122,15 +122,6 @@ spec:
         - mountPath: /grafana-dashboard-definitions/0/workload-total
           name: grafana-dashboard-workload-total
           readOnly: false
-        - mountPath: /grafana-dashboard-definitions/0/amo-default-dashboard
-          name: grafana-dashboard-amo-default-dashboard
-          readOnly: false
-        - mountPath: /grafana-dashboard-definitions/0/nats-dashboard
-          name: grafana-dashboard-nats-dashboard
-          readOnly: false
-        - mountPath: /grafana-dashboard-definitions/0/redis-dashboard
-          name: grafana-dashboard-redis-dashboard
-          readOnly: false
       nodeSelector:
         beta.kubernetes.io/os: linux
       securityContext:
@@ -216,12 +207,3 @@ spec:
       - configMap:
           name: grafana-dashboard-workload-total
         name: grafana-dashboard-workload-total
-      - configMap:
-          name: grafana-dashboard-amo-default-dashboard
-        name: grafana-dashboard-amo-default-dashboard
-      - configMap:
-          name: grafana-dashboard-nats-dashboard
-        name: grafana-dashboard-nats-dashboard
-      - configMap:
-          name: grafana-dashboard-redis-dashboard
-        name: grafana-dashboard-redis-dashboard
