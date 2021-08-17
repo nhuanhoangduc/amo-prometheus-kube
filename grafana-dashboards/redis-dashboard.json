@@ -1,8 +1,8 @@
 {
   "__inputs": [
     {
-      "name": "DS_PROMETHEUS",
-      "label": "prometheus",
+      "name": "DS_PROMETHEUS_(PRIMARY)",
+      "label": "Prometheus (Primary)",
       "description": "",
       "type": "datasource",
       "pluginId": "prometheus",
@@ -10,12 +10,6 @@
     }
   ],
   "__requires": [
-    {
-      "type": "panel",
-      "id": "gauge",
-      "name": "Gauge",
-      "version": ""
-    },
     {
       "type": "grafana",
       "id": "grafana",
@@ -39,6 +33,12 @@
       "id": "singlestat",
       "name": "Singlestat",
       "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
     }
   ],
   "annotations": {
@@ -59,11 +59,11 @@
   "gnetId": 763,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1629159432267,
+  "iteration": 1629185012271,
   "links": [],
   "panels": [
     {
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -71,19 +71,11 @@
           },
           "mappings": [],
           "thresholds": {
-            "mode": "percentage",
+            "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "rgb(255, 255, 255)",
                 "value": null
-              },
-              {
-                "color": "#EAB839",
-                "value": 80
-              },
-              {
-                "color": "red",
-                "value": 90
               }
             ]
           },
@@ -97,8 +89,12 @@
         "x": 0,
         "y": 0
       },
-      "id": 16,
+      "id": 20,
+      "interval": "3s",
       "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -107,59 +103,38 @@
           "fields": "",
           "values": false
         },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "text": {}
+        "text": {},
+        "textMode": "auto"
       },
       "pluginVersion": "7.5.4",
       "targets": [
         {
           "exemplar": true,
-          "expr": "(sum(rate(redis_cpu_sys_seconds_total[3m])) * 100)",
+          "expr": "avg by (instance) (irate(redis_cpu_sys_seconds_total[1m]))",
+          "instant": false,
           "interval": "",
-          "intervalFactor": 2,
+          "intervalFactor": 1,
           "legendFormat": "",
-          "queryType": "randomWalk",
           "refId": "A"
         }
       ],
       "title": "CPU Usage",
-      "type": "gauge"
+      "type": "stat"
     },
     {
-      "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
-          "decimals": 0,
-          "mappings": [
-            {
-              "id": 0,
-              "op": "=",
-              "text": "N/A",
-              "type": 1,
-              "value": "null"
-            }
-          ],
-          "max": 10000000,
-          "min": 0,
+          "mappings": [],
           "thresholds": {
             "mode": "percentage",
             "steps": [
               {
-                "color": "green",
+                "color": "rgb(255, 255, 255)",
                 "value": null
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 80
-              },
-              {
-                "color": "rgba(245, 54, 54, 0.9)",
-                "value": 95
               }
             ]
           },
@@ -173,13 +148,12 @@
         "x": 6,
         "y": 0
       },
-      "hideTimeOverride": true,
-      "id": 11,
-      "interval": null,
-      "links": [],
-      "maxDataPoints": 100,
+      "id": 18,
       "options": {
-        "orientation": "horizontal",
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -187,28 +161,21 @@
           "fields": "",
           "values": false
         },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "text": {}
+        "text": {},
+        "textMode": "auto"
       },
       "pluginVersion": "7.5.4",
       "targets": [
         {
           "exemplar": true,
-          "expr": "redis_memory_used_bytes{instance=~\"$instance\"} ",
-          "format": "time_series",
+          "expr": "redis_memory_used_bytes{instance=\"$instance\"} ",
           "interval": "",
-          "intervalFactor": 2,
           "legendFormat": "",
-          "metric": "",
-          "refId": "A",
-          "step": 2
+          "refId": "A"
         }
       ],
-      "timeFrom": "1m",
-      "timeShift": null,
       "title": "Memory Usage",
-      "type": "gauge"
+      "type": "stat"
     },
     {
       "cacheTimeout": null,
@@ -219,7 +186,7 @@
         "rgba(237, 129, 40, 0.89)",
         "rgba(50, 172, 45, 0.97)"
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "${DS_PROMETHEUS_(PRIMARY)}",
       "decimals": 0,
       "editable": true,
       "error": false,
@@ -311,7 +278,7 @@
         "rgba(237, 129, 40, 0.89)",
         "rgba(50, 172, 45, 0.97)"
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "${DS_PROMETHEUS_(PRIMARY)}",
       "decimals": 0,
       "editable": true,
       "error": false,
@@ -401,7 +368,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "${DS_PROMETHEUS_(PRIMARY)}",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -505,7 +472,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "${DS_PROMETHEUS_(PRIMARY)}",
       "decimals": 2,
       "editable": true,
       "error": false,
@@ -625,7 +592,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "${DS_PROMETHEUS_(PRIMARY)}",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -739,7 +706,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "${DS_PROMETHEUS_(PRIMARY)}",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -849,7 +816,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "${DS_PROMETHEUS_(PRIMARY)}",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -954,7 +921,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "${DS_PROMETHEUS_(PRIMARY)}",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -1071,7 +1038,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "${DS_PROMETHEUS_(PRIMARY)}",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -1190,7 +1157,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "${DS_PROMETHEUS_(PRIMARY)}",
       "editable": true,
       "error": false,
       "fieldConfig": {
@@ -1301,7 +1268,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_PROMETHEUS}",
+        "datasource": "${DS_PROMETHEUS_(PRIMARY)}",
         "definition": "label_values(redis_up, instance)",
         "description": null,
         "error": null,
@@ -1359,5 +1326,5 @@
   "timezone": "browser",
   "title": "Redis Dashboard",
   "uid": "123123",
-  "version": 4
+  "version": 10
 }

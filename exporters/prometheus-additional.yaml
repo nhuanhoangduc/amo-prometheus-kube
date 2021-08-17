@@ -1,8 +1,8 @@
 - job_name: nats-exporter
   static_configs:
     - targets:
-        - nats-exporter.default.svc.cluster.local:7777
+        - nats-exporter.default.svc:7777
 - job_name: redis-exporter
   static_configs:
     - targets:
-        - redis-exporter.default.svc.cluster.local:9121
+        - redis-exporter.default.svc:9121
