@@ -2,7 +2,7 @@ groups:
   - name: custom-alert-rules
     rules:
       - alert: CrashLooping
-        expr: rate(kube_pod_container_status_restarts_total{namespace="default"}[10m]) > 0
+        expr: rate(kube_pod_container_status_restarts_total{namespace="default"}[10m]) * 60 * 5 > 0
         for: 3m
         labels:
           app: amo

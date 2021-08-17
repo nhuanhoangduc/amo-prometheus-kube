@@ -16,7 +16,7 @@ spec:
       annotations:
         description: Pod {{ $labels.pod }} ({{ $labels.container }}) is restarting {{ printf "%.2f" $value }} times / 10 minutes.
         summary: Pod is crash looping.
-      expr: rate(kube_pod_container_status_restarts_total{namespace="default"}[10m]) > 0
+      expr: rate(kube_pod_container_status_restarts_total{namespace="default"}[10m]) * 60 * 5 > 0
       for: 3m
       labels:
         app: amo
