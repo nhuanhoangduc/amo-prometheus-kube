@@ -29,6 +29,10 @@ up:
 	microk8s kubectl apply -f ${BUILD_DIR}/exporters/redis_exporter.yaml
 	microk8s kubectl apply -f ${BUILD_DIR}/exporters/additional-scrape-configs.yaml -n monitoring
 	microk8s kubectl apply -f ${BUILD_DIR}/manifests
+	microk8s kubectl apply -f ${BUILD_DIR}/services.yaml
 
 down:
 	microk8s kubectl delete --ignore-not-found=true -f ${BUILD_DIR}/manifests/ -f ${BUILD_DIR}/manifests/setup
+	microk8s kubectl delete -f ${BUILD_DIR}/exporters/nats_exporter.yaml
+	microk8s kubectl delete -f ${BUILD_DIR}/exporters/redis_exporter.yaml
+	microk8s kubectl delete -f ${BUILD_DIR}/services.yaml
