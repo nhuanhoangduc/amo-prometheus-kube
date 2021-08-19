@@ -1,0 +1,10 @@
+### Grafana
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana
+spec:
+  type: ExternalName
+  externalName: grafana.monitoring.svc
+  ports:
+    - port: 3000
