@@ -1,6 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: monitoring
   name: redis-exporter
   labels:
     app: redis-exporter
@@ -25,6 +26,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  namespace: monitoring
   name: redis-exporter
 spec:
   type: NodePort

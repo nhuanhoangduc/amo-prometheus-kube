@@ -1,6 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
+  namespace: monitoring
   name: dnsutils
   namespace: default
 spec:
@@ -16,6 +17,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: monitoring
   name: nats-exporter
   labels:
     app: nats-exporter
@@ -40,6 +42,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  namespace: monitoring
   name: nats-exporter
 spec:
   type: NodePort
