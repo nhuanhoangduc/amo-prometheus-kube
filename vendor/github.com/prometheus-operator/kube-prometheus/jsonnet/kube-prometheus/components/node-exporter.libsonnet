@@ -145,7 +145,7 @@ function(params) {
       endpoints: [{
         port: 'https',
         scheme: 'https',
-        interval: '15s',
+        interval: '1s',
         bearerTokenFile: '/var/run/secrets/kubernetes.io/serviceaccount/token',
         relabelings: [
           {

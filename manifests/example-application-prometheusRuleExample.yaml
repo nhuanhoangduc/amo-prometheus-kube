@@ -17,7 +17,7 @@ spec:
         description: Pod {{ $labels.pod }} ({{ $labels.container }}) is restarting {{ printf "%.2f" $value }} times / 10 minutes.
         summary: Pod is crash looping.
       expr: rate(kube_pod_container_status_restarts_total{job="kube-state-metrics",namespace="default"}[10m]) * 60 * 5 > 0
-      for: 3m
+      for: 1m
       labels:
         app: amo
         severity: critical
@@ -26,7 +26,7 @@ spec:
         description: Container CPU usage {{ $labels.pod }} is above 80%
         summary: Container CPU usage (pod {{ $labels.pod }})
       expr: (sum(rate(container_cpu_usage_seconds_total{namespace="default"}[10m])) BY (namespace, pod) * 100) > 80
-      for: 3m
+      for: 1m
       labels:
         app: amo
         severity: critical

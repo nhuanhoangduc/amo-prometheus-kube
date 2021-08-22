@@ -109,6 +109,8 @@
     refresh: '10s',
     timepicker: {
       refresh_intervals: [
+        '1s',
+        '3s',
         '5s',
         '10s',
         '30s',

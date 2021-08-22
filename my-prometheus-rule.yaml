@@ -3,7 +3,7 @@ groups:
     rules:
       - alert: CrashLooping
         expr: rate(kube_pod_container_status_restarts_total{job="kube-state-metrics",namespace="default"}[10m]) * 60 * 5 > 0
-        for: 3m
+        for: 1m
         labels:
           app: amo
           severity: critical
@@ -12,7 +12,7 @@ groups:
           description: Pod {{ $labels.pod }} ({{ $labels.container }}) is restarting {{ printf "%.2f" $value }} times / 10 minutes.
       - alert: HighCpuUsage
         expr: (sum(rate(container_cpu_usage_seconds_total{namespace="default"}[10m])) BY (namespace, pod) * 100) > 80
-        for: 3m
+        for: 1m
         labels:
           app: amo
           severity: critical

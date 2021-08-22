@@ -23,6 +23,7 @@ items:
           "links": [
 
           ],
+          "min_refresh_interval": "1s",
           "panels": [
               {
                   "content": "The SLO (service level objective) and other metrics displayed on this dashboard are for informational purposes only.",
@@ -1699,6 +1700,8 @@ items:
           },
           "timepicker": {
               "refresh_intervals": [
+                  "1s",
+                  "3s",
                   "5s",
                   "10s",
                   "30s",
@@ -1767,6 +1770,7 @@ items:
           "links": [
 
           ],
+          "min_refresh_interval": "1s",
           "panels": [
               {
                   "collapse": false,
@@ -3570,6 +3574,8 @@ items:
           },
           "timepicker": {
               "refresh_intervals": [
+                  "1s",
+                  "3s",
                   "5s",
                   "10s",
                   "30s",
@@ -3630,6 +3636,7 @@ items:
           "links": [
 
           ],
+          "min_refresh_interval": "1s",
           "refresh": "10s",
           "rows": [
               {
@@ -4736,6 +4743,8 @@ items:
           },
           "timepicker": {
               "refresh_intervals": [
+                  "1s",
+                  "3s",
                   "5s",
                   "10s",
                   "30s",
@@ -7749,6 +7758,8 @@ items:
           },
           "timepicker": {
               "refresh_intervals": [
+                  "1s",
+                  "3s",
                   "5s",
                   "10s",
                   "30s",
@@ -10482,6 +10493,8 @@ items:
           },
           "timepicker": {
               "refresh_intervals": [
+                  "1s",
+                  "3s",
                   "5s",
                   "10s",
                   "30s",
@@ -11449,6 +11462,8 @@ items:
           },
           "timepicker": {
               "refresh_intervals": [
+                  "1s",
+                  "3s",
                   "5s",
                   "10s",
                   "30s",
@@ -13865,6 +13880,8 @@ items:
           },
           "timepicker": {
               "refresh_intervals": [
+                  "1s",
+                  "3s",
                   "5s",
                   "10s",
                   "30s",
@@ -15840,6 +15857,8 @@ items:
           },
           "timepicker": {
               "refresh_intervals": [
+                  "1s",
+                  "3s",
                   "5s",
                   "10s",
                   "30s",
@@ -17980,6 +17999,8 @@ items:
           },
           "timepicker": {
               "refresh_intervals": [
+                  "1s",
+                  "3s",
                   "5s",
                   "10s",
                   "30s",
@@ -18040,6 +18061,7 @@ items:
           "links": [
 
           ],
+          "min_refresh_interval": "1s",
           "refresh": "10s",
           "rows": [
               {
@@ -20502,6 +20524,8 @@ items:
           },
           "timepicker": {
               "refresh_intervals": [
+                  "1s",
+                  "3s",
                   "5s",
                   "10s",
                   "30s",
@@ -20570,6 +20594,7 @@ items:
           "links": [
 
           ],
+          "min_refresh_interval": "1s",
           "panels": [
               {
                   "collapse": false,
@@ -21955,6 +21980,8 @@ items:
           },
           "timepicker": {
               "refresh_intervals": [
+                  "1s",
+                  "3s",
                   "5s",
                   "10s",
                   "30s",
@@ -22023,6 +22050,7 @@ items:
           "links": [
 
           ],
+          "min_refresh_interval": "1s",
           "panels": [
               {
                   "collapse": false,
@@ -23680,6 +23708,8 @@ items:
           },
           "timepicker": {
               "refresh_intervals": [
+                  "1s",
+                  "3s",
                   "5s",
                   "10s",
                   "30s",
@@ -24633,6 +24663,8 @@ items:
           },
           "timepicker": {
               "refresh_intervals": [
+                  "1s",
+                  "3s",
                   "5s",
                   "10s",
                   "30s",
@@ -25613,6 +25645,8 @@ items:
           },
           "timepicker": {
               "refresh_intervals": [
+                  "1s",
+                  "3s",
                   "5s",
                   "10s",
                   "30s",
@@ -25673,7 +25707,8 @@ items:
           "links": [
 
           ],
-          "refresh": "",
+          "min_refresh_interval": "1s",
+          "refresh": "1s",
           "rows": [
               {
                   "collapse": false,
@@ -26600,6 +26635,8 @@ items:
           },
           "timepicker": {
               "refresh_intervals": [
+                  "1s",
+                  "3s",
                   "5s",
                   "10s",
                   "30s",
@@ -26659,6 +26696,7 @@ items:
           "links": [
 
           ],
+          "min_refresh_interval": "1s",
           "refresh": "10s",
           "rows": [
               {
@@ -27165,6 +27203,8 @@ items:
           },
           "timepicker": {
               "refresh_intervals": [
+                  "1s",
+                  "3s",
                   "5s",
                   "10s",
                   "30s",
@@ -27233,6 +27273,7 @@ items:
           "links": [
 
           ],
+          "min_refresh_interval": "1s",
           "panels": [
               {
                   "collapse": false,
@@ -28382,6 +28423,8 @@ items:
           },
           "timepicker": {
               "refresh_intervals": [
+                  "1s",
+                  "3s",
                   "5s",
                   "10s",
                   "30s",
@@ -28442,6 +28485,7 @@ items:
           "links": [
 
           ],
+          "min_refresh_interval": "1s",
           "refresh": "60s",
           "rows": [
               {
@@ -30042,6 +30086,8 @@ items:
           },
           "timepicker": {
               "refresh_intervals": [
+                  "1s",
+                  "3s",
                   "5s",
                   "10s",
                   "30s",
@@ -31257,6 +31303,8 @@ items:
           },
           "timepicker": {
               "refresh_intervals": [
+                  "1s",
+                  "3s",
                   "5s",
                   "10s",
                   "30s",
@@ -31317,6 +31365,7 @@ items:
           "links": [
 
           ],
+          "min_refresh_interval": "1s",
           "refresh": "10s",
           "rows": [
               {
@@ -32503,6 +32552,8 @@ items:
           },
           "timepicker": {
               "refresh_intervals": [
+                  "1s",
+                  "3s",
                   "5s",
                   "10s",
                   "30s",
@@ -32563,6 +32614,7 @@ items:
           "links": [
 
           ],
+          "min_refresh_interval": "1s",
           "refresh": "10s",
           "rows": [
               {
@@ -33592,6 +33644,8 @@ items:
           },
           "timepicker": {
               "refresh_intervals": [
+                  "1s",
+                  "3s",
                   "5s",
                   "10s",
                   "30s",
@@ -33652,7 +33706,8 @@ items:
           "links": [
 
           ],
-          "refresh": "",
+          "min_refresh_interval": "1s",
+          "refresh": "1s",
           "rows": [
               {
                   "collapse": false,
@@ -34509,6 +34564,8 @@ items:
           },
           "timepicker": {
               "refresh_intervals": [
+                  "1s",
+                  "3s",
                   "5s",
                   "10s",
                   "30s",
@@ -34577,6 +34634,7 @@ items:
           "links": [
 
           ],
+          "min_refresh_interval": "1s",
           "panels": [
               {
                   "collapse": false,
@@ -35936,6 +35994,8 @@ items:
           },
           "timepicker": {
               "refresh_intervals": [
+                  "1s",
+                  "3s",
                   "5s",
                   "10s",
                   "30s",

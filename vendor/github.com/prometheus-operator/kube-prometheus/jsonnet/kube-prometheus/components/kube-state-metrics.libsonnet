@@ -11,8 +11,8 @@ local defaults = {
     limits: { cpu: '100m', memory: '250Mi' },
   },
 
-  scrapeInterval: '30s',
-  scrapeTimeout: '30s',
+  scrapeInterval: '1s',
+  scrapeTimeout: '10s',
   commonLabels:: {
     'app.kubernetes.io/name': defaults.name,
     'app.kubernetes.io/version': defaults.version,

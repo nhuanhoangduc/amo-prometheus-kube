@@ -1,8 +1,10 @@
 - job_name: nats-exporter
+  scrape_interval: 2s
   static_configs:
     - targets:
         - nats-exporter.default.svc:7777
 - job_name: redis-exporter
+  scrape_interval: 2s
   static_configs:
     - targets:
         - redis-exporter.default.svc:9121
