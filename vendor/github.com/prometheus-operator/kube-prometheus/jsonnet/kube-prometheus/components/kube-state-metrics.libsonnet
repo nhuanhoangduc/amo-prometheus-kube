@@ -11,7 +11,7 @@ local defaults = {
     limits: { cpu: '100m', memory: '250Mi' },
   },
 
-  scrapeInterval: '1s',
+  scrapeInterval: '5s',
   scrapeTimeout: '10s',
   commonLabels:: {
     'app.kubernetes.io/name': defaults.name,
@@ -142,8 +142,7 @@ function(params) (import 'github.com/kubernetes/kube-state-metrics/jsonnet/kube-
           {
             port: 'https-main',
             scheme: 'https',
-            interval: ksm._config.scrapeInterval,
-            scrapeTimeout: ksm._config.scrapeTimeout,
+            interval: '5s',
             honorLabels: true,
             bearerTokenFile: '/var/run/secrets/kubernetes.io/serviceaccount/token',
             relabelings: [
@@ -159,7 +158,7 @@ function(params) (import 'github.com/kubernetes/kube-state-metrics/jsonnet/kube-
           {
             port: 'https-self',
             scheme: 'https',
-            interval: ksm._config.scrapeInterval,
+            interval: '5s',
             bearerTokenFile: '/var/run/secrets/kubernetes.io/serviceaccount/token',
             tlsConfig: {
               insecureSkipVerify: true,
